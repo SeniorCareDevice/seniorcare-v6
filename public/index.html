@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESP32 Sensor Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>ESP32 Health & Safety Monitoring System</h1>
+    <div id="connection-status">Connecting...</div>
+  </header>
+  
+  <main>
+    <section class="dashboard">
+      <div class="card" id="fall-status">
+        <h2>Fall Detection</h2>
+        <div class="sensor-value">
+          <span id="fall-indicator">No Fall Detected</span>
+        </div>
+        <div class="sensor-detail">
+          Acceleration: <span id="acceleration-value">--</span> m/s²
+        </div>
+      </div>
+      
+      <div class="card">
+        <h2>Heart Rate</h2>
+        <div class="sensor-value">
+          <span id="heart-rate">--</span> <span class="unit">BPM</span>
+        </div>
+        <canvas id="heart-rate-chart"></canvas>
+      </div>
+      
+      <div class="card">
+        <h2>Blood Oxygen</h2>
+        <div class="sensor-value">
+          <span id="spo2">--</span> <span class="unit">%</span>
+        </div>
+        <canvas id="spo2-chart"></canvas>
+      </div>
+      
+      <div class="card">
+        <h2>Body Temperature</h2>
+        <div class="sensor-value">
+          <span id="temperature">--</span> <span class="unit">°C</span>
+        </div>
+        <canvas id="temperature-chart"></canvas>
+      </div>
+      
+      <div class="card full-width">
+        <h2>Location</h2>
+        <div id="gps-info">
+          <div>Latitude: <span id="latitude">--</span></div>
+          <div>Longitude: <span id="longitude">--</span></div>
+          <div>Satellites: <span id="satellites">--</span></div>
+        </div>
+        <div id="map-placeholder">
+          <p>GPS map visualization would be displayed here in a full implementation.</p>
+        </div>
+      </div>
+    </section>
+    
+    <section class="history-section">
+      <h2>Sensor History</h2>
+      <div class="history-controls">
+        <button id="refresh-history">Refresh</button>
+      </div>
+      <div class="history-table-container">
+        <table id="history-table">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Heart Rate</th>
+              <th>SpO2</th>
+              <th>Temperature</th>
+              <th>Fall</th>
+            </tr>
+          </thead>
+          <tbody id="history-data">
+            <!-- Data will be inserted here dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <p>Last update: <span id="last-update">Never</span></p>
+  </footer>
+  
+  <script src="app.js"></script>
+</body>
+</html>
